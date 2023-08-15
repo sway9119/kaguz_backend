@@ -23,7 +23,7 @@ RUN chmod +x /usr/bin/entrypoint.sh
 # exec形式でデフォルトで実行するコマンドラインの引数としてentrypoint.shを指定
 ENTRYPOINT ["entrypoint.sh"]
 # ネットワーク上のポートを指定する
-EXPOSE 3000
+EXPOSE 4000
 
 # Railsサーバーを稼働させる
 CMD ["rails", "server", "-b", "0.0.0.0"]
