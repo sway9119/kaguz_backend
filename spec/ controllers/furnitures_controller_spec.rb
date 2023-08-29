@@ -21,4 +21,30 @@ RSpec.desclibe Funitures.create, type: :controller do
       expect(parsed_respose['name']).to eq('Table')
     end
   end
-  
+
+  describe 'POST #create' do
+    it '家具の作成' do
+      post :create, params: { furniture: { name: 'Chair', description: 'A comfortable chair' } }
+      expect(response).to have_http_status(:created)
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['name']).to eq('Chair')
+    end
+  end
+
+  describe 'PATCH #update' do
+    it '家具の更新' do
+      patch :update, params: { id: furniture.id, furniture: { description: 'An updated table' } }
+      expect(response).to have_http_status(:success)
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['description']).to eq('An updated table')
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it '家具の削除' do
+      delete :destroy, params: { id: furniture.id }
+      expect(response).to have_http_status(:no_content)
+      expect { Furniture.find(furniture.id) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
+end
